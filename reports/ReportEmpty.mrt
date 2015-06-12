@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" application="StiReport" type="Flex">
+  <Dictionary isKey="true" Ref="1" type="Dictionary">
+    <Databases count="1" isList="true">
+      <Connection1 isKey="true" Ref="2" type="Stimulsoft.Report.Dictionary.StiMySqlDatabase">
+        <Alias>Connection1</Alias>
+        <ConnectionStringEncrypted>w9Dfa09WW4ViFaXMyz3gY4Rw0cJmZ/vBRk398eEB5EbCVM0JZFFRgcJMrMzndDJj0cjNS8YFe5lh
+GLmExBhuFw==</ConnectionStringEncrypted>
+        <Name>Connection1</Name>
+      </Connection1>
+    </Databases>
+    <DataSources count="3" isList="true">
+      <DataSource1 isKey="true" Ref="3" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>DataSource1</Alias>
+        <Columns count="5" isList="true">
+          <value>YEARMONTH,System.String</value>
+          <value>YEARONLY,System.String</value>
+          <value>MONTHONLY,System.String</value>
+          <value>PCUCODE,System.String</value>
+          <value>RESULT,System.Int32</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource1</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters count="0" isList="true"/>
+        <SqlCommand>select * from rpt_ncdscreen1_one where pcucode like '{p1}' order by pcucode</SqlCommand>
+      </DataSource1>
+      <DataSource2 isKey="true" Ref="4" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>DataSource2</Alias>
+        <Columns count="2" isList="true">
+          <value>pcucode,System.String</value>
+          <value>sumdat,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource2</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters count="0" isList="true"/>
+        <SqlCommand>select pcucode,sum(result) as sumdat from rpt_ncdscreen1_one group by pcucode</SqlCommand>
+      </DataSource2>
+      <DataSource3 isKey="true" Ref="5" type="Stimulsoft.Report.Dictionary.StiMySqlSource">
+        <Alias>DataSource3</Alias>
+        <Columns count="2" isList="true">
+          <value>client_code,System.String</value>
+          <value>client_name,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource3</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters count="0" isList="true"/>
+        <SqlCommand>select '%'client_code,'ทั้งหมด'client_name from sys_config_client_new
+union
+select client_code,client_name from sys_config_client_new</SqlCommand>
+      </DataSource3>
+    </DataSources>
+    <Relations count="0" isList="true"/>
+    <Report isRef="0"/>
+    <Variables count="1" isList="true">
+      <value>,p1,สถานบริการ,System.String,_x0025_,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings count="0" isList="true"/>
+  <MetaTags count="0" isList="true"/>
+  <Pages count="1" isList="true">
+    <Page1 isKey="true" Ref="6" type="Page">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components count="0" isList="true"/>
+      <Conditions count="0" isList="true"/>
+      <Guid>4c35f88bd7f49a6af744f3b84a2ac62b</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0"/>
+      <Watermark isKey="true" Ref="7" type="Stimulsoft.Report.Components.StiWatermark">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings isKey="true" Ref="8" type="Stimulsoft.Report.Print.StiPrinterSettings"/>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>03/24/2014 05:52:25 PM</ReportChanged>
+  <ReportCreated>03/24/2014 05:52:25 PM</ReportCreated>
+  <ReportFile/>
+  <ReportGuid>a3076f19e9e7fb6ad148f3b84a35e2bc</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2013.3.1800</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles count="0" isList="true"/>
+</StiSerializer>

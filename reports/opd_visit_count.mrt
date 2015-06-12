@@ -1,0 +1,1940 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer type="Flex" application="StiReport" version="1.02">
+  <Dictionary type="Dictionary" isKey="true" Ref="1">
+    <Databases isList="true" count="1">
+      <Connection1 type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" isKey="true" Ref="2">
+        <Alias>Connection1</Alias>
+        <ConnectionStringEncrypted>w9Zpa0ZdW9liGbXY5QD3Y4tadcLlWluEYVyhzE109kbC0vWJTly76UJHnIDqXGJn1Mj7qE8Do91s
+W7nEYyXhF9U=</ConnectionStringEncrypted>
+        <Name>Connection1</Name>
+      </Connection1>
+    </Databases>
+    <DataSources isList="true" count="5">
+      <DataSource1 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="3">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="2">
+          <value>Sy,System.Int32</value>
+          <value>vy,System.Int32</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource1</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select Year(curdate()) AS Sy,Year(curdate())+543 AS vy
+UNION
+select Year(curdate())-1 AS Sy,(Year(curdate())-1)+543 AS vy
+UNION
+select Year(curdate())-2 AS Sy,(Year(curdate())-2)+543 AS vy
+UNION
+select Year(curdate())-3 AS Sy,(Year(curdate())-3)+543 AS vy
+UNION
+select Year(curdate())-4 AS Sy,(Year(curdate())-4)+543 AS vy</SqlCommand>
+      </DataSource1>
+      <DataSource2 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="4">
+        <Alias>DataSource2</Alias>
+        <Columns isList="true" count="2">
+          <value>pyear,System.Decimal</value>
+          <value>selyear,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource2</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select ('{selyear}'-543)-1 as pyear ,'{selyear}'-543 as selyear</SqlCommand>
+      </DataSource2>
+      <DataSource3 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="5">
+        <Alias>DataSource3</Alias>
+        <Columns isList="true" count="1">
+          <value>pyear,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource3</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select '{DataSource2.selyear}' as pyear</SqlCommand>
+      </DataSource3>
+      <DataSource4 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="6">
+        <Alias>DataSource4</Alias>
+        <Columns isList="true" count="28">
+          <value>selyear,System.String</value>
+          <value>hoscode,System.String</value>
+          <value>hosname,System.String</value>
+          <value>octvn,System.Int32</value>
+          <value>octhn,System.Int32</value>
+          <value>novvn,System.Int32</value>
+          <value>novhn,System.Int32</value>
+          <value>decvn,System.Int32</value>
+          <value>dechn,System.Int32</value>
+          <value>janvn,System.Int32</value>
+          <value>janhn,System.Int32</value>
+          <value>febvn,System.Int32</value>
+          <value>febhn,System.Int32</value>
+          <value>marvn,System.Int32</value>
+          <value>marhn,System.Int32</value>
+          <value>aprvn,System.Int32</value>
+          <value>aprhn,System.Int32</value>
+          <value>mayvn,System.Int32</value>
+          <value>mayhn,System.Int32</value>
+          <value>junvn,System.Int32</value>
+          <value>junhn,System.Int32</value>
+          <value>julvn,System.Int32</value>
+          <value>julhn,System.Int32</value>
+          <value>augvn,System.Int32</value>
+          <value>aughn,System.Int32</value>
+          <value>sepvn,System.Int32</value>
+          <value>sephn,System.Int32</value>
+          <value>selyear,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource4</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select ('{selyear}'-543) as selyear,h.hoscode,h.hosname
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'10')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as octvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'10')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as octhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'11')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as novvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'11')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as novhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.hospcode = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'12')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as 'decvn'
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.hospcode = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543)-1,'12')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as 'dechn'
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'01')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as janvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'01')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as janhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'02')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as febvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'02')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+) as febhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'03')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as marvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'03')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as marhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'04')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as aprvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'04')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as aprhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'05')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as mayvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'05')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as mayhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'06')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as junvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'06')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as junhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'07')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as julvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'07')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as julhn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'08')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as augvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'08')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as aughn
+,(SELECT COUNT(s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'09')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as sepvn
+,(SELECT COUNT(DISTINCT s.pid) FROM service s 
+where s.HOSPCODE = h.hoscode and EXTRACT(YEAR_MONTH FROM s.DATE_SERV)= CONCAT(('{selyear}'-543),'09')
+and s.PID in (select p.pid from person p WHERE p.HOSPCODE = h.hoscode and p.typearea = 4)
+)as sephn
+from chospital_amp h</SqlCommand>
+      </DataSource4>
+      <DataSource5 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="7">
+        <Alias>DataSource5</Alias>
+        <Columns isList="true" count="1">
+          <value>cc,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource5</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select '{selyear}'+543 as cc</SqlCommand>
+      </DataSource5>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="1">
+      <value>,selyear,ปีงบประมาณ,,System.String,_x0032_558,False,False,True</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="1">
+    <Page1 type="Page" isKey="true" Ref="8">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="5">
+        <PageFooterBand1 type="PageFooterBand" isKey="true" Ref="9">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,18,28.7,1</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text71 type="Text" isKey="true" Ref="10">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.6,0.4,3.6,0.4</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>7cb208427e051d05a0ecb72e126059c7</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text71</Name>
+              <Page isRef="8"/>
+              <Parent isRef="9"/>
+              <Text>Design By : DHDC TEAM</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text71>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>PageFooterBand1</Name>
+          <Page isRef="8"/>
+          <Parent isRef="8"/>
+        </PageFooterBand1>
+        <ReportTitleBand1 type="ReportTitleBand" isKey="true" Ref="11">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,28.7,3.6</ClientRectangle>
+          <Components isList="true" count="5">
+            <Image1 type="Image" isKey="true" Ref="12">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.4,0.2,1.6,1.4</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <DataColumn isNull="true"/>
+              <Image>iVBORw0KGgoAAAANSUhEUgAAAEAAAAA2CAYAAAB3Ep8CAAAACXBIWXMAAC4jAAAuIwF4pT92AAAA
+IGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACdSURBVHja7NmxDQIx
+DAXQ+Eh/29wEbEMJY3Al2zAB2zAAMj0NQjKV3y+jyMWTHUVJZObonGU0DwAAAAAAAACgb+ZPu/eo
+uTaeMz6XLo9DSe3r9godAAAAAAAAAAAAAAAAAABfEv4FjAAAAJ0z/1n8eHuWnLD30xo6AAAAAAAA
+AAAAAAAAAAAK40nMCAAAAAAAAAAAADTNGwAA//8DAEYzFGWwabjdAAAAAElFTkSuQmCC</Image>
+              <Name>Image1</Name>
+              <Page isRef="8"/>
+              <Parent isRef="11"/>
+            </Image1>
+            <Text1 type="Text" isKey="true" Ref="13">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.6,1.8,7.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,14,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="8"/>
+              <Parent isRef="11"/>
+              <Text>คนไข้นอกเขตมารับบริการในปีงบ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text1>
+            <Text3 type="Text" isKey="true" Ref="14">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2,0.6,2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Times New Roman,18,Bold</Font>
+              <Guid>681d75231f36942aa829b01dc23d4ed8</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="8"/>
+              <Parent isRef="11"/>
+              <Text>DHDC</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+            <Text15 type="Text" isKey="true" Ref="15">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7.8,1.8,2.2,1</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,14,Bold</Font>
+              <Guid>57f920c92a010a18de34b71f9bcc1b5c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="8"/>
+              <Parent isRef="11"/>
+              <Text>{selyear}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text15>
+            <Text16 type="Text" isKey="true" Ref="16">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,1.8,7.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,14,Bold</Font>
+              <Guid>6410b08e97f06d6cfddab72218b7d929</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="8"/>
+              <Parent isRef="11"/>
+              <Text>แยกรายสถานบริการ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text16>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="8"/>
+          <Parent isRef="8"/>
+        </ReportTitleBand1>
+        <HeaderBand1 type="HeaderBand" isKey="true" Ref="17">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.8,28.7,1.6</ClientRectangle>
+          <Components isList="true" count="39">
+            <Text4 type="Text" isKey="true" Ref="18">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>1,0,1.2,1.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>รหัส</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text6 type="Text" isKey="true" Ref="19">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>2.2,0,4.2,1.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>สถานบริการ</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text8 type="Text" isKey="true" Ref="20">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>6.4,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ตค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text12 type="Text" isKey="true" Ref="21">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>0.2,0,0.8,1.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>c224b903eeca96c9f603b01f85c3d4bd</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ลำดับ</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text26 type="Text" isKey="true" Ref="22">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>6.4,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>e81aa0f08077ec183a64b7081ad3b1c1</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text26</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text26>
+            <Text23 type="Text" isKey="true" Ref="23">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>7.3,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>df3ef685663a94c5d3e4b7081ad38330</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text23</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text23>
+            <Text24 type="Text" isKey="true" Ref="24">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>8.2,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>776e60c3945f3cf4ba43b708b19b91f5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text24</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>พย.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text24>
+            <Text25 type="Text" isKey="true" Ref="25">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>10,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>b329daece3723ebb1d0ab708bbda4b05</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text25</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ธค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text25>
+            <Text27 type="Text" isKey="true" Ref="26">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>11.8,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f6eda75a00ae9f6b3c2ab708c61f7602</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text27</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>มก.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text28 type="Text" isKey="true" Ref="27">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>13.6,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>22b7b7fc8abc3ad706a1b708cf631a61</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text28</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>กพ.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text29 type="Text" isKey="true" Ref="28">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>15.4,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>9c8af1f989119a409d0eb708d59d0703</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text29</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>มีค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text29>
+            <Text30 type="Text" isKey="true" Ref="29">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>17.2,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>14a30346f6546ab9f47cb708e5ac385b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text30</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>เมย.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text30>
+            <Text31 type="Text" isKey="true" Ref="30">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>19,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>47571dc3c91a2d34d8bab708ed742aac</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text31</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>พค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text31>
+            <Text32 type="Text" isKey="true" Ref="31">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>20.8,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f1aa87a060446dc9f85fb708fc58b81c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text32</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>มิย.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text32>
+            <Text33 type="Text" isKey="true" Ref="32">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>22.6,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>4977cc7ec8fb109e3ec4b7090421a21e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text33</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>กค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text33>
+            <Text34 type="Text" isKey="true" Ref="33">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>24.4,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>af4a996756d70d1c210bb709100598c9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text34</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>สค.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text34>
+            <Text10 type="Text" isKey="true" Ref="34">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>26.2,0,1.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>54574ef732d284059bb9b712be2229d5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>กย.</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text37 type="Text" isKey="true" Ref="35">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>8.2,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>e186152ad961f950c8adb716beb28233</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text37</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text37>
+            <Text7 type="Text" isKey="true" Ref="36">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>9.1,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>3ede8929d250bf66612fb716beb30b03</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text39 type="Text" isKey="true" Ref="37">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>10,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>63f1eb8eb359a75a3f7cb716c911f6c0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text39</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text39>
+            <Text36 type="Text" isKey="true" Ref="38">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>10.9,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>6b4b78064f72b6750fc8b716c9119930</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text36</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text36>
+            <Text41 type="Text" isKey="true" Ref="39">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>11.8,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f7b74d325b6ad1c22ff4b716d22158a6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text41</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text41>
+            <Text38 type="Text" isKey="true" Ref="40">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>12.7,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>bc448636335d80e9265db716d221efe0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text38</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text38>
+            <Text43 type="Text" isKey="true" Ref="41">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>13.6,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>d8c9ea4bdad6ebb7ef71b716db868516</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text43</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text43>
+            <Text40 type="Text" isKey="true" Ref="42">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>14.5,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>2c9c341b90fcc8012c25b716db86a902</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text40</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text40>
+            <Text45 type="Text" isKey="true" Ref="43">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>15.4,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>2277bafa967395a4a5e7b716ebd56655</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text45</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text45>
+            <Text42 type="Text" isKey="true" Ref="44">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>16.3,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>563eaa2aa1734b87e8c6b716ebd51739</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text42</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text42>
+            <Text47 type="Text" isKey="true" Ref="45">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>17.2,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>b4106fee95d54f56ca90b716f4b0a2ae</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text47</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text47>
+            <Text44 type="Text" isKey="true" Ref="46">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>18.1,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>952eabdd699fe3c55ef1b716f4b02dd3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text44</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text44>
+            <Text49 type="Text" isKey="true" Ref="47">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>19,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>4a50ca79fe5192b2a7aab716fe1feed9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text49</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text49>
+            <Text46 type="Text" isKey="true" Ref="48">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>19.9,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>87cca14a3dfdb458ade3b716fe20684b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text46</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text46>
+            <Text51 type="Text" isKey="true" Ref="49">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>20.8,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f5c0d0130f68fd38a3a9b71708de75a6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text51</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text51>
+            <Text48 type="Text" isKey="true" Ref="50">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>21.7,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f55eee3abf07f6429214b71708df61d0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text48</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text48>
+            <Text53 type="Text" isKey="true" Ref="51">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>22.6,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>6fde1954ece9f7cbfc2fb7171274c5b8</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text53</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text53>
+            <Text50 type="Text" isKey="true" Ref="52">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>23.5,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>1528e253505b028adbe2b7171274ad9c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text50</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text50>
+            <Text55 type="Text" isKey="true" Ref="53">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>24.4,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>c843ef5fbafe2f62ab44b7171d3114d0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text55</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text55>
+            <Text52 type="Text" isKey="true" Ref="54">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>25.3,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>0be1436ab9ee0df2ea72b7171d318266</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text52</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text52>
+            <Text57 type="Text" isKey="true" Ref="55">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>26.2,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>f8d65996418f2fdb458bb717245101f3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text57</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>คน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text57>
+            <Text54 type="Text" isKey="true" Ref="56">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[69:134:215]</Brush>
+              <ClientRectangle>27.1,0.8,0.9,0.8</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8,Bold</Font>
+              <Guid>fcde8e6a570dade24606b7172451651f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text54</Name>
+              <Page isRef="8"/>
+              <Parent isRef="17"/>
+              <Text>ครั้ง</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text54>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>HeaderBand1</Name>
+          <Page isRef="8"/>
+          <Parent isRef="8"/>
+        </HeaderBand1>
+        <DataBand1 type="DataBand" isKey="true" Ref="57">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,7.2,28.7,0.6</ClientRectangle>
+          <Components isList="true" count="28">
+            <Text2 type="Text" isKey="true" Ref="58">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>1,0,1.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.hoscode}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text13 type="Text" isKey="true" Ref="59">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.2,0,0.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>348977f91983bf803494b02290cee198</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{Line}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>SystemVariables</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 type="Text" isKey="true" Ref="60">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.2,0,4.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>1eba26ed9d0de011a4a2b023f7d1e806</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text9 type="Text" isKey="true" Ref="61">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.4,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>179cfc51bba2e058f727b70ab1c46aca</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.hosname}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text11 type="Text" isKey="true" Ref="62">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>e1128105560fe5307a6bb7151c895220</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.octhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text35 type="Text" isKey="true" Ref="63">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>7.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>2e91d6e1b6f9e2136df3b71544c68d5c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text35</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.octvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text35>
+            <Text18 type="Text" isKey="true" Ref="64">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>c0ba494c0f8a0a2fd67ab72318735b74</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.novhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text5 type="Text" isKey="true" Ref="65">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>9.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>ad76907ed4f80485628ab72318737df1</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.novvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text20 type="Text" isKey="true" Ref="66">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>7d916016dd0095107d68b723244ae28e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text20</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.dechn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text20>
+            <Text17 type="Text" isKey="true" Ref="67">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>10.9,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>5a3ce26e3ae5dfb52181b723244aeab9</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.decvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+            <Text22 type="Text" isKey="true" Ref="68">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11.8,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>21c0a8e9ec7e0b807ba9b7232c90cb75</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text22</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.janhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text22>
+            <Text19 type="Text" isKey="true" Ref="69">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>12.7,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>712e227a67c6bbf1b4a5b7232c90e93b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.janvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+            <Text58 type="Text" isKey="true" Ref="70">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.6,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>2a9fc6824d723537ffe8b7233ff4be12</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text58</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.febhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text58>
+            <Text21 type="Text" isKey="true" Ref="71">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>14.5,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>36293a3c25373d76f9c1b7233ff45db4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text21</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.febvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+            <Text60 type="Text" isKey="true" Ref="72">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>2ce0dbab722042533086b72349da0418</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text60</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.marhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text60>
+            <Text56 type="Text" isKey="true" Ref="73">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>16.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>1db4e7ea263a897cd8e2b72349dab9c4</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text56</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.marvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text56>
+            <Text62 type="Text" isKey="true" Ref="74">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>17.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>a6408981096d8abb9f50b72355c3e065</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text62</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.aprhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text62>
+            <Text59 type="Text" isKey="true" Ref="75">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>18.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>e44b67f1b17e120d9994b72355c37bb2</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text59</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.aprvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text59>
+            <Text64 type="Text" isKey="true" Ref="76">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>19,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>51dacc9788ba81733275b723603d7f8e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text64</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.mayhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text64>
+            <Text61 type="Text" isKey="true" Ref="77">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>19.9,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>76f33885d6e2fc6a018fb723603e02ac</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text61</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.mayvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text61>
+            <Text66 type="Text" isKey="true" Ref="78">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>20.8,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>5190f559d80324d7da8bb723694bbfc7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text66</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.junhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text66>
+            <Text63 type="Text" isKey="true" Ref="79">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>21.7,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>cc6030467f9ea2dc49dfb723694b12e6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text63</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.janvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text63>
+            <Text68 type="Text" isKey="true" Ref="80">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>22.6,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>487af4d48c03542830f5b7237289ad9c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text68</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.julhn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text68>
+            <Text65 type="Text" isKey="true" Ref="81">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>23.5,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f481383260c3c011628bb72372890636</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text65</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.julvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text65>
+            <Text70 type="Text" isKey="true" Ref="82">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>24.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>0c2770c457dab823558cb7238604bc43</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text70</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.aughn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text70>
+            <Text67 type="Text" isKey="true" Ref="83">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>25.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>4e257a7d538dc2019379b7238604524e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text67</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.augvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text67>
+            <Text72 type="Text" isKey="true" Ref="84">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>26.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>928eacfa4ea9c6fcb1c1b72390f5721d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text72</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.sephn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text72>
+            <Text69 type="Text" isKey="true" Ref="85">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[198:227:140]</Brush>
+              <ClientRectangle>27.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>15e56799fdc5fa2df9cfb72390f52db5</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text69</Name>
+              <Page isRef="8"/>
+              <Parent isRef="57"/>
+              <Text>{DataSource4.sepvn}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text69>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>DataSource4</DataSourceName>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <Page isRef="8"/>
+          <Parent isRef="8"/>
+          <Sort isList="true" count="0"/>
+        </DataBand1>
+        <FooterBand1 type="FooterBand" isKey="true" Ref="86">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,8.6,28.7,0.6</ClientRectangle>
+          <Components isList="true" count="25">
+            <Text73 type="Text" isKey="true" Ref="87">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>0.2,0,6.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>1757f36313809f4d3b53b725c6d93a3d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text73</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>รวมทั้งหมด</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text73>
+            <Text75 type="Text" isKey="true" Ref="88">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>6.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>87cf983fda61005e4710b725c6d9e873</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text75</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataBand1,DataSource4.octhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Totals</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text75>
+            <Text76 type="Text" isKey="true" Ref="89">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>7.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f782932774eba878fc8db725c6d941e7</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text76</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataBand1,DataSource4.octvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text76>
+            <Text77 type="Text" isKey="true" Ref="90">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>8.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>1338adbd045be9713256b725c6d933ba</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text77</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataBand1,DataSource4.novhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text77>
+            <Text78 type="Text" isKey="true" Ref="91">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>9.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>17521483f4864d5f022bb725c6d9c715</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text78</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataBand1,DataSource4.novvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text78>
+            <Text79 type="Text" isKey="true" Ref="92">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>10,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>6f9b5a89056bb32ac059b725c6d913da</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text79</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.dechn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text79>
+            <Text80 type="Text" isKey="true" Ref="93">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>10.9,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>b01f302ee1a0aa7fdaf2b725c6d9bfc0</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text80</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.decvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text80>
+            <Text81 type="Text" isKey="true" Ref="94">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>11.8,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>d748a02acb3bdc862b50b725c6d99fb6</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text81</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.janhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text81>
+            <Text82 type="Text" isKey="true" Ref="95">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>12.7,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>3ef9eac933aaf79674e7b725c6d9d20c</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text82</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.janvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text82>
+            <Text83 type="Text" isKey="true" Ref="96">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>13.6,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>635f1f99700f03839e71b725c6d95520</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text83</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.febhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text83>
+            <Text84 type="Text" isKey="true" Ref="97">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>14.5,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>98c64b1d6fdb4029c498b725c6d918ff</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text84</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.febvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text84>
+            <Text85 type="Text" isKey="true" Ref="98">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>15.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f12e4bd8080d448d5284b725c6dacf74</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text85</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.marhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text85>
+            <Text86 type="Text" isKey="true" Ref="99">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>16.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>baf446912ecc55c0c579b725c6da123e</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text86</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.marvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text86>
+            <Text87 type="Text" isKey="true" Ref="100">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>17.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f6859d9e4f32c2fedc11b725c6daf3af</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text87</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.aprhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text87>
+            <Text88 type="Text" isKey="true" Ref="101">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>18.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>3981cf0585a7f1889f2eb725c6dad290</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text88</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.aprvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text88>
+            <Text89 type="Text" isKey="true" Ref="102">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>19,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>1df26179d00e43d1a6ffb725c6da8c73</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text89</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.mayhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text89>
+            <Text90 type="Text" isKey="true" Ref="103">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>19.9,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>c11b144212b0054fb671b725c6da4572</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text90</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.mayvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text90>
+            <Text91 type="Text" isKey="true" Ref="104">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>20.8,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f2de69bfdaa1e880b19cb725c6dae825</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text91</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.junhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text91>
+            <Text92 type="Text" isKey="true" Ref="105">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>21.7,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>f3776a3646b97ffbfa68b725c6da8ebc</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text92</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.janvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text92>
+            <Text93 type="Text" isKey="true" Ref="106">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>22.6,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>82837c338b5dbfffdd73b725c6da2330</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text93</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.julhn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text93>
+            <Text94 type="Text" isKey="true" Ref="107">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>23.5,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>51990cdc56df3cbc4b0fb725c6daa246</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text94</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.julvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text94>
+            <Text95 type="Text" isKey="true" Ref="108">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>24.4,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>9c9f8527889d0ba0ab94b725c6da6e03</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text95</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.aughn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text95>
+            <Text96 type="Text" isKey="true" Ref="109">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>25.3,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>10901dfc1b9e9f0edac0b725c6da8c31</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text96</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.augvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text96>
+            <Text97 type="Text" isKey="true" Ref="110">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>26.2,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>bf62021ddd0858a1f288b725c6daef89</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text97</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.sephn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text97>
+            <Text98 type="Text" isKey="true" Ref="111">
+              <Border>All;Black;1;Solid;False;4;Black</Border>
+              <Brush>[255:149:20]</Brush>
+              <ClientRectangle>27.1,0,0.9,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Tahoma,8</Font>
+              <Guid>e7cb8f0d1421eb0f4d36b725c6dad451</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text98</Name>
+              <Page isRef="8"/>
+              <Parent isRef="86"/>
+              <Text>{Sum(DataSource4.sepvn)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text98>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>FooterBand1</Name>
+          <Page isRef="8"/>
+          <Parent isRef="8"/>
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>54694d0e7d548c361b4fb0089ccbf772</Guid>
+      <Margins>0.5,0.5,1,1</Margins>
+      <Name>Page1</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>21</PageHeight>
+      <PageWidth>29.7</PageWidth>
+      <Report isRef="0"/>
+      <Watermark type="Stimulsoft.Report.Components.StiWatermark" isKey="true" Ref="112">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" Ref="113"/>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>02/24/2015 08:57:35 AM</ReportChanged>
+  <ReportCreated>02/22/2015 01:45:29 PM</ReportCreated>
+  <ReportFile>C:\Users\ict009\Documents\personvh.mrt</ReportFile>
+  <ReportGuid>7ec8997e117689389ab6b94dc040ff90</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2013.3.1800</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0"/>
+</StiSerializer>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer type="Flex" application="StiReport" version="1.02">
+  <Dictionary type="Dictionary" isKey="true" Ref="1">
+    <Databases isList="true" count="1">
+      <Connection1 type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" isKey="true" Ref="2">
+        <Alias>Connection1</Alias>
+        <ConnectionStringEncrypted>w9DZa09LW+liFaXY5T21Y4RadcJmWVu8Rk39zOF0YUbC1GkJTlm7gcITufTidKNjxMjNS8YB09lh
+R6GEahigFw==</ConnectionStringEncrypted>
+        <Name>Connection1</Name>
+      </Connection1>
+    </Databases>
+    <DataSources isList="true" count="2">
+      <DataSource1 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="3">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="31">
+          <value>HOSPCODE,System.String</value>
+          <value>CID,System.String</value>
+          <value>PID,System.String</value>
+          <value>HID,System.String</value>
+          <value>PRENAME,System.String</value>
+          <value>NAME,System.String</value>
+          <value>LNAME,System.String</value>
+          <value>HN,System.String</value>
+          <value>SEX,System.String</value>
+          <value>BIRTH,System.DateTime</value>
+          <value>MSTATUS,System.String</value>
+          <value>OCCUPATION_OLD,System.String</value>
+          <value>OCCUPATION_NEW,System.String</value>
+          <value>RACE,System.String</value>
+          <value>NATION,System.String</value>
+          <value>RELIGION,System.String</value>
+          <value>EDUCATION,System.String</value>
+          <value>FSTATUS,System.String</value>
+          <value>FATHER,System.String</value>
+          <value>MOTHER,System.String</value>
+          <value>COUPLE,System.String</value>
+          <value>VSTATUS,System.String</value>
+          <value>MOVEIN,System.DateTime</value>
+          <value>DISCHARGE,System.String</value>
+          <value>DDISCHARGE,System.DateTime</value>
+          <value>ABOGROUP,System.String</value>
+          <value>RHGROUP,System.String</value>
+          <value>LABOR,System.String</value>
+          <value>PASSPORT,System.String</value>
+          <value>TYPEAREA,System.String</value>
+          <value>D_UPDATE,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource1</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>select * from person</SqlCommand>
+      </DataSource1>
+      <DataSource2 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="4">
+        <Alias>DataSource2</Alias>
+        <Columns isList="true" count="5">
+          <value>CID,System.String</value>
+          <value>NAME,System.String</value>
+          <value>LNAME,System.String</value>
+          <value>DBP_1,System.Int32</value>
+          <value>DBP_2,System.Int32</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource2</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT  p.CID,p.`NAME`,p.LNAME
+,n.DBP_1,n.DBP_2 from person p
+
+LEFT JOIN ncdscreen n on n.PID = p.PID and n.HOSPCODE = p.HOSPCODE
+
+where n.DBP_1 != ''  AND n.DATE_SERV BETWEEN '2014-09-30' and CURDATE()</SqlCommand>
+      </DataSource2>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="1">
+      <value>,h,h,System.String,,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="1">
+    <Page1 type="Page" isKey="true" Ref="5">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="7">
+        <Text2 type="Text" isKey="true" Ref="6">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>28,1.8,1.6,0.6</ClientRectangle>
+          <Conditions isList="true" count="0"/>
+          <Font>Arial,10</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text2</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Text>{DataSource1.CID}</Text>
+          <TextBrush>Black</TextBrush>
+        </Text2>
+        <Text3 type="Text" isKey="true" Ref="7">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>25.2,1.8,2.8,0.6</ClientRectangle>
+          <Conditions isList="true" count="0"/>
+          <Font>Arial,10</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text3</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Text>CID</Text>
+          <TextBrush>Black</TextBrush>
+        </Text3>
+        <Text1 type="Text" isKey="true" Ref="8">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>28,1.2,1.6,0.6</ClientRectangle>
+          <Conditions isList="true" count="0"/>
+          <Font>Arial,10</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Text>{DataSource2.CID}</Text>
+          <TextBrush>Black</TextBrush>
+        </Text1>
+        <Text4 type="Text" isKey="true" Ref="9">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>25.2,1.2,2.8,0.6</ClientRectangle>
+          <Conditions isList="true" count="0"/>
+          <Font>Arial,10</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text4</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Text>CID</Text>
+          <TextBrush>Black</TextBrush>
+        </Text4>
+        <ReportTitleBand1 type="ReportTitleBand" isKey="true" Ref="10">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,1.6</ClientRectangle>
+          <Components isList="true" count="1">
+            <Image1 type="Image" isKey="true" Ref="11">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,19,1.4</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <DataColumn isNull="true"/>
+              <Image>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
+QRDEJP4P9Lndi2iz/NgAAAAASUVORK5CYII=</Image>
+              <Name>Image1</Name>
+              <Page isRef="5"/>
+              <Parent isRef="10"/>
+            </Image1>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+        </ReportTitleBand1>
+        <HeaderBand1 type="HeaderBand" isKey="true" Ref="12">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.8,19,1.6</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text6 type="Text" isKey="true" Ref="13">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="5"/>
+              <Parent isRef="12"/>
+              <Text>CID</Text>
+              <TextBrush>Black</TextBrush>
+            </Text6>
+            <Text8 type="Text" isKey="true" Ref="14">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3.2,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="5"/>
+              <Parent isRef="12"/>
+              <Text>NAME</Text>
+              <TextBrush>Black</TextBrush>
+            </Text8>
+            <Text10 type="Text" isKey="true" Ref="15">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.8,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="5"/>
+              <Parent isRef="12"/>
+              <Text>LNAME</Text>
+              <TextBrush>Black</TextBrush>
+            </Text10>
+            <Text12 type="Text" isKey="true" Ref="16">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.6,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="5"/>
+              <Parent isRef="12"/>
+              <Text>DBP_1</Text>
+              <TextBrush>Black</TextBrush>
+            </Text12>
+            <Text14 type="Text" isKey="true" Ref="17">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.6,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="5"/>
+              <Parent isRef="12"/>
+              <Text>DBP_2</Text>
+              <TextBrush>Black</TextBrush>
+            </Text14>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>HeaderBand1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+        </HeaderBand1>
+        <DataBand1 type="DataBand" isKey="true" Ref="18">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.2,19,0.8</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text5 type="Text" isKey="true" Ref="19">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,2.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="5"/>
+              <Parent isRef="18"/>
+              <Text>{DataSource2.CID}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text5>
+            <Text7 type="Text" isKey="true" Ref="20">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>3,0,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="5"/>
+              <Parent isRef="18"/>
+              <Text>{DataSource2.NAME}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text7>
+            <Text9 type="Text" isKey="true" Ref="21">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.6,0,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="5"/>
+              <Parent isRef="18"/>
+              <Text>{DataSource2.LNAME}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text9>
+            <Text11 type="Text" isKey="true" Ref="22">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.4,0,3.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="5"/>
+              <Parent isRef="18"/>
+              <Text>{DataSource2.DBP_1}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text11>
+            <Text13 type="Text" isKey="true" Ref="23">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.6,0,3,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="5"/>
+              <Parent isRef="18"/>
+              <Text>{DataSource2.DBP_2}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text13>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>DataSource2</DataSourceName>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <Page isRef="5"/>
+          <Parent isRef="5"/>
+          <Sort isList="true" count="0"/>
+        </DataBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>16ef10bbf775db260ec7af5ecc8d7088</Guid>
+      <Margins>1,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0"/>
+      <Watermark type="Stimulsoft.Report.Components.StiWatermark" isKey="true" Ref="24">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" Ref="25"/>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>02/22/2015 01:07:04 PM</ReportChanged>
+  <ReportCreated>02/22/2015 10:40:00 AM</ReportCreated>
+  <ReportFile>E:\xampp\tomcat\webapps\dhdc\reports\person.mrt</ReportFile>
+  <ReportGuid>eab3065db87757553f78afe571c68fee</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2013.3.1800</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0"/>
+</StiSerializer>

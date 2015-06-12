@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer type="Flex" version="1.02" application="StiReport">
+  <Dictionary type="Dictionary" isKey="true" Ref="1">
+    <Databases isList="true" count="1">
+      <Connection1 type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" isKey="true" Ref="2">
+        <Alias>Connection1</Alias>
+        <ConnectionStringEncrypted>w9DZa09LW+liFaXY5T21Y4RadcJmWVu8Rk39zOF0YUbC1GkJTlm7gcITufTidKNjxMjNS8YB09lh
+R6GEahigFw==</ConnectionStringEncrypted>
+        <Name>Connection1</Name>
+      </Connection1>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <DataSource1 type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true" Ref="3">
+        <Alias>DataSource1</Alias>
+        <Columns isList="true" count="2">
+          <value>hoscode,System.String</value>
+          <value>total,System.Int32</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1"/>
+        <Name>DataSource1</Name>
+        <NameInSource>Connection1</NameInSource>
+        <Parameters isList="true" count="0"/>
+        <SqlCommand>SELECT h.hoscode,t.total,t2.total,t3.total FROM  chospital_amp h
+LEFT JOIN (
+SELECT p.HOSPCODE,COUNT(p.PID) as total from person p
+GROUP BY p.HOSPCODE
+) t on t.HOSPCODE = h.hoscode
+LEFT JOIN (
+SELECT p.HOSPCODE,COUNT(p.PID) as total from person p
+WHERE p.DISCHARGE = 1
+GROUP BY p.HOSPCODE
+) t2 on t2.HOSPCODE = h.hoscode
+LEFT JOIN (
+SELECT p.HOSPCODE,COUNT(p.PID) as total from person p
+WHERE p.DISCHARGE = 2
+GROUP BY p.HOSPCODE
+) t3 on t3.HOSPCODE = h.hoscode</SqlCommand>
+      </DataSource1>
+    </DataSources>
+    <Relations isList="true" count="0"/>
+    <Report isRef="0"/>
+    <Variables isList="true" count="0"/>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0"/>
+  <MetaTags isList="true" count="0"/>
+  <Pages isList="true" count="1">
+    <Page1 type="Page" isKey="true" Ref="4">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <ReportTitleBand1 type="ReportTitleBand" isKey="true" Ref="5">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,19,1.6</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text1 type="Text" isKey="true" Ref="6">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.2,0.4,14.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,16,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4"/>
+              <Parent isRef="5"/>
+              <Text>การสร้างรายงานด้วย Stimusoft เชื่อมต่อเข้ากับระบบ DHDC</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text1>
+            <Image1 type="Image" isKey="true" Ref="7">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,-0.2,1.6,1.4</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <DataColumn isNull="true"/>
+              <Image>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
+f//Z</Image>
+              <Name>Image1</Name>
+              <Page isRef="4"/>
+              <Parent isRef="5"/>
+            </Image1>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="4"/>
+          <Parent isRef="4"/>
+        </ReportTitleBand1>
+        <HeaderBand1 type="HeaderBand" isKey="true" Ref="8">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>[70:130:180]</Brush>
+          <ClientRectangle>0,2.8,19,0.6</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text3 type="Text" isKey="true" Ref="9">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>1.6,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,12,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4"/>
+              <Parent isRef="8"/>
+              <Text>รหัสสถานบริการ</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+            </Text3>
+            <Text5 type="Text" isKey="true" Ref="10">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8.6,0,3.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,12,Bold</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4"/>
+              <Parent isRef="8"/>
+              <Text>ผลการดำเนินงาน</Text>
+              <TextBrush>[255:255:255]</TextBrush>
+              <Type>Expression</Type>
+            </Text5>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>HeaderBand1</Name>
+          <Page isRef="4"/>
+          <Parent isRef="4"/>
+        </HeaderBand1>
+        <DataBand1 type="DataBand" isKey="true" Ref="11">
+          <Border>All;Black;1;Solid;False;4;Black</Border>
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.2,19,0.8</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text2 type="Text" isKey="true" Ref="12">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>1.6,0.2,1.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4"/>
+              <Parent isRef="11"/>
+              <Text>{DataSource1.hoscode}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text2>
+            <Text4 type="Text" isKey="true" Ref="13">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>8,0.2,2.6,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4"/>
+              <Parent isRef="11"/>
+              <Text>{DataSource1.total}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text4>
+            <Text6 type="Text" isKey="true" Ref="14">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.8,0.2,1.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4"/>
+              <Parent isRef="11"/>
+              <Text>คน</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text6>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <DataSourceName>DataSource1</DataSourceName>
+          <Filters isList="true" count="0"/>
+          <Name>DataBand1</Name>
+          <Page isRef="4"/>
+          <Parent isRef="4"/>
+          <Sort isList="true" count="0"/>
+        </DataBand1>
+        <FooterBand1 type="FooterBand" isKey="true" Ref="15">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,5.8,19,0.8</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text7 type="Text" isKey="true" Ref="16">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11,0,4,0.6</ClientRectangle>
+              <Conditions isList="true" count="0"/>
+              <Font>Arial,10</Font>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4"/>
+              <Parent isRef="15"/>
+              <Text>{Sum(DataBand1,DataSource1.total)}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Totals</Type>
+            </Text7>
+          </Components>
+          <Conditions isList="true" count="0"/>
+          <Name>FooterBand1</Name>
+          <Page isRef="4"/>
+          <Parent isRef="4"/>
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0"/>
+      <Guid>6693ea2bff59056a40a8b0071eef9680</Guid>
+      <Margins>1,1,0.5,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0"/>
+      <Watermark type="Stimulsoft.Report.Components.StiWatermark" isKey="true" Ref="17">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" Ref="18"/>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>02/22/2015 02:04:29 PM</ReportChanged>
+  <ReportCreated>02/22/2015 01:43:51 PM</ReportCreated>
+  <ReportFile>E:\xampp\tomcat\webapps\dhdc\reports\rpt1.mrt</ReportFile>
+  <ReportGuid>23b39a9924762e8aeb6db01a03513270</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2013.3.1800</ReportVersion>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0"/>
+</StiSerializer>
